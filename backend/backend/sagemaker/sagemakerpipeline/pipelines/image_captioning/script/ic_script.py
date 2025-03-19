@@ -30,8 +30,8 @@ if os.path.exists(onnx_dir):
         if file not in [
             "decoder_model_merged_quantized.onnx",
             "encoder_model_quantized.onnx",
-            "decoder_model_merged_fp16.onnx",
-            "encoder_model_fp16.onnx",
+            "decoder_model_merged.onnx",
+            "encoder_model.onnx",
         ]:
             file_path = os.path.join(onnx_dir, file)
             if os.path.isfile(file_path):
