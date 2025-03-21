@@ -1,0 +1,46 @@
+{
+  "name": "visual_assistant",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "dependencies": {
+    "@aws-amplify/adapter-nextjs": "^1.2.21",
+    "@aws-amplify/ui-react": "^6.5.4",
+    "@cloudscape-design/components": "^3.0.748",
+    "@cloudscape-design/global-styles": "^1.0.32",
+    "@huggingface/transformers": "^3.3.2",
+    "@stdlib/datasets-cmudict": "^0.2.2",
+    "aws-amplify": "^6.6.4",
+    "axios": "^1.7.7",
+    "dompurify": "^3.2.3",
+    "jszip": "^3.10.1",
+    "next": "15.1.6",
+    "react": "^18.3.1",
+    "react-dom": "^18",
+    "reactflow": "^11.11.4",
+    "wavefile": "^11.0.0",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.11",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "15.0.3",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "lint-staged": "^15.3.0",
+    "postcss": "^8",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^3.4.1",
+    "typescript": "5.7.2"
+  },
+  "lint-staged": {
+    "*.js": "eslint --fix",
+    "*.{js,jsx,ts,tsx,md,html,css}": "prettier --write"
+  }
+}

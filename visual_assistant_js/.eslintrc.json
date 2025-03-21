@@ -1,0 +1,23 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["import"],
+  "rules": {
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single"],
+    "indent": ["warn", 2],
+    "no-unused-vars": "warn",
+    "no-var": "warn",
+    "prefer-const": "warn",
+    "eqeqeq": "warn",
+    "curly": "warn",
+    "no-multiple-empty-lines": ["warn", { "max": 2 }],
+    "no-trailing-spaces": "warn",
+    "object-curly-spacing": ["warn", "always"],
+    "array-bracket-spacing": ["warn", "never"],
+    "comma-dangle": ["warn", "always-multiline"],
+    "arrow-parens": ["warn", "always"],
+    "max-len": ["warn", { "code": 220 }], 
+    "no-duplicate-imports": "warn",
+    "import/no-relative-parent-imports": "error"
+  }
+}
