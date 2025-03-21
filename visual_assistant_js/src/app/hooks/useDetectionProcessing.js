@@ -51,6 +51,7 @@ export function useDetectionProcessing() {
       detectionWorker.current.postMessage({
         type: 'process',
         frame: FrameManager.getInstance().getCurrentFrame(),
+        objectDetSize: useDetectionStore.getState().objectDetSize,
       });
       break;
 
@@ -96,7 +97,7 @@ export function useDetectionProcessing() {
         detectionWorker.current.postMessage({
           type: 'process',
           frame: currentFrame,
-          objectDetSize,
+          objectDetSize: useDetectionStore.getState().objectDetSize,
         });
       }
       break;

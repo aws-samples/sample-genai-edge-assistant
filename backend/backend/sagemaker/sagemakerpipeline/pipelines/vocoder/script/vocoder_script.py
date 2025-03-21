@@ -29,7 +29,6 @@ if os.path.exists(onnx_dir):
     for file in os.listdir(onnx_dir):
         if file not in [
             "model_quantized.onnx",
-            "model_fp16.onnx",
         ]:
             file_path = os.path.join(onnx_dir, file)
             if os.path.isfile(file_path):

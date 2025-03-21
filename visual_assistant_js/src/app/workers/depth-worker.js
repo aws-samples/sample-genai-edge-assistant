@@ -56,14 +56,15 @@ class DepthPipelineSingleton {
     this.objectDepthModel = await AutoModel.from_pretrained(this.model, {
       device: this.device,
       // Use fp16 if available, otherwise use fp32
-      dtype: 'fp16',
+      dtype: 'q8',
+      quantized: true,
       progress_callback,
     });
 
     this.objectDepthProcessor = await AutoProcessor.from_pretrained(this.model);
 
     this.size = 128;
-    this.objectDepthProcessor.feature_extractor.size = {
+    this.objectDepthProcessor.image_processor.size = {
       width: this.size,
       height: this.size,
     };
@@ -135,7 +136,7 @@ self.addEventListener('message', async (event) => {
 
     img = new RawImage(event.data.frame.data, 640, 480, 4);
 
-    detector.objectDepthProcessor.feature_extractor.size = {
+    detector.objectDepthProcessor.image_processor.size = {
       width: event.data.depthSize,
       height: event.data.depthSize,
     };

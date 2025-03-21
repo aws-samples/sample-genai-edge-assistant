@@ -60,7 +60,7 @@ class ImageCaptioningPipelineSingleton {
         {
           device: this.device,
           // Use fp16 if available, otherwise use fp32
-          dtype: 'fp32',
+          dtype: 'q8',
           quantized: true,
           progress_callback,
         },

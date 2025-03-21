@@ -40,15 +40,15 @@ class AudioPipelineSingleton {
   static async getInstance(progress_callback = null) {
     this.tokenizer = await AutoTokenizer.from_pretrained(this.model, {
       device: this.device,
-      dtype: 'fp32',
+      dtype: 'q8',
     });
     this.processor = await AutoProcessor.from_pretrained(this.model, {
       device: this.device,
-      dtype: 'fp32',
+      dtype: 'q8',
     });
     this.audioModel = await SpeechT5ForTextToSpeech.from_pretrained(this.model, {
       device: this.device,
-      dtype: 'fp32',
+      dtype: 'q8',
     });
     return this;
   }
@@ -61,7 +61,7 @@ class VocoderPipelineSingleton {
   static async getInstance(progress_callback = null) {
     this.vocoder = await SpeechT5HifiGan.from_pretrained(this.model, {
       device: this.device,
-      dtype: 'fp32',
+      dtype: 'q8',
       quantized: true,
     });
 

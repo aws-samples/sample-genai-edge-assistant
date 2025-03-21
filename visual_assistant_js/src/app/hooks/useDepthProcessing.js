@@ -56,7 +56,7 @@ export function useDepthProcessing() {
       depthWorker.current.postMessage({
         type: 'process',
         frame: FrameManager.getInstance().getCurrentFrame(),
-        depthSize: size,
+        depthSize: useDepthStore.getState().size,
       });
       break;
 
@@ -103,7 +103,7 @@ export function useDepthProcessing() {
         depthWorker.current.postMessage({
           type: 'process',
           frame: currentFrame,
-          depthSize: size,
+          depthSize: useDepthStore.getState().size,
         });
       }
       break;

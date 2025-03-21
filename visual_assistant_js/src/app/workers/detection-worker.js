@@ -56,7 +56,7 @@ class DetectionPipelineSingleton {
     this.objectDetectionModel = await AutoModel.from_pretrained(this.model, {
       device: this.device,
       // Use fp16 if available, otherwise use fp32
-      dtype: 'fp16',
+      dtype: 'q8',
       quantized: true,
       progress_callback,
     });
