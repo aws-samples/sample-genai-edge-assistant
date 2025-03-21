@@ -7,9 +7,6 @@ Helping the visually impaired people. This demo showcases how foundation models 
 > 2. Cloud deployments can incur cost on your AWS accounts. Make sure to plan this accordingly and check for the prices in your region of deployment.
 > 3. Some features might be unavailable for deployment in specific regions.
 
-> **Compatibility Notice**  
-> The `main` branch runs `transformers.js` v3, which is currently experiencing compatibility issues on iOS (Safari & Chrome) and macOS (Safari). If you encounter issues, please use the `main-transformers-js-v2` branch, which runs `transformers.js` v2 and utilizes older models with different SageMaker pipelines.
-
 # Instructions for deployment
 
 ## If you plan to use AWS Amplify for frontend hosting

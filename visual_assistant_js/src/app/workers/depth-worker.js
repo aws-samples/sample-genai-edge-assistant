@@ -15,12 +15,6 @@ env.allowLocalModels = true;
 env.allowRemoteModels = false;
 env.localModelPath = '/models/';
 
-env.backends.onnx.wasm.wasmPaths = {
-  // A
-  mjs: "/ort-wasm-simd.mjs",
-  wasm: "/ort-wasm-simd.wasm",
-}
-
 let detector = null;
 let isInitialized = false;
 
@@ -42,6 +36,11 @@ class DepthPipelineSingleton {
     if (isMobile) {
       console.warn('Mobile device detected. Using web assembly.');
       this.device = 'wasm';
+      env.backends.onnx.wasm.wasmPaths = {
+        // A
+        mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.mjs',
+        wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.wasm'
+      }
     } else if (!navigator.gpu) {
       console.warn(
         'WebGPU is not supported in this browser. Falling back to web assembly.',
@@ -50,7 +49,7 @@ class DepthPipelineSingleton {
     } else {
       console.log('WebGPU is supported.');
       //this.device = 'webgpu';
-      this.device = 'wasm';
+      this.device = 'webgpu';
     }
 
     this.objectDepthModel = await AutoModel.from_pretrained(this.model, {
