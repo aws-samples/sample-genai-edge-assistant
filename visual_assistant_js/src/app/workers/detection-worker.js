@@ -49,7 +49,8 @@ class DetectionPipelineSingleton {
       this.device = 'wasm';
     } else {
       console.log('WebGPU is supported.');
-      this.device = 'webgpu';
+      //this.device = 'webgpu';
+      this.device = 'wasm';
     }
 
     this.objectDetectionModel = await AutoModel.from_pretrained(this.model, {
