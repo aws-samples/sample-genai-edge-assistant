@@ -1,11 +1,11 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { create } from 'zustand';
-import { WORKER_TO_MODEL_MAP } from '@/app/globals';
+import { WORKER_TO_MODEL_MAP } from 'src/app/globals';
 import {
   validateCachedFiles,
   getCachedManifest,
-} from '@/app/utils/modelFetching';
+} from 'src/app/utils/modelFetching';
 
 export const useServiceSelectionStore = create((set, get) => ({
   selectedServices: {},

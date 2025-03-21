@@ -9,14 +9,14 @@ import {
   StatusIndicator,
 } from '@cloudscape-design/components';
 import { useRef } from 'react';
-import CameraSelector from '@/app/components/camera/cameraSelector';
+import CameraSelector from 'src/app/components/camera/cameraSelector';
 import {
   COLOURS,
   VIDEO_DISPLAY_COMMON_STYLE,
   STATUS_CONFIG,
-} from '@/app/globals';
-import useCamera from '@/app/hooks/useCamera';
-import { useDetectionStore } from '@/app/stores/detectionStore';
+} from 'src/app/globals';
+import useCamera from 'src/app/hooks/useCamera';
+import { useDetectionStore } from 'src/app/stores/detectionStore';
 
 const BoundingBox = ({ box, sizes, id2label, threshold }) => {
   const [xmin, ymin, xmax, ymax, score, id] = box;

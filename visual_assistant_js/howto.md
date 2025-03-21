@@ -27,7 +27,7 @@ The worker system consists of several key components that work together:
 Create a new file in `src/app/workers/your-worker.js`:
 
 ```javascript
-import { setupWorkerLogging } from '@/app/utils/workerLogging.js';
+import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 
 // Configure environment
 env.allowLocalModels = true;
@@ -116,9 +116,9 @@ Create a new file in `src/app/hooks/useYourWorkerProcessing.js`:
 ```javascript
 'use client';
 import { useRef } from 'react';
-import { useYourWorkerStore } from '@/app/stores/yourWorkerStore';
-import { useLogsStore } from '@/app/stores/logsStore';
-import FrameManager from '@/app/utils/frameManager';
+import { useYourWorkerStore } from 'src/app/stores/yourWorkerStore';
+import { useLogsStore } from 'src/app/stores/logsStore';
+import FrameManager from 'src/app/utils/frameManager';
 
 export function useYourWorkerProcessing() {
   const worker = useRef(null);

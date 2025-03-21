@@ -5,14 +5,14 @@
 import { StatusIndicator } from '@cloudscape-design/components';
 import HelpPanel from '@cloudscape-design/components/help-panel';
 import Icon from '@cloudscape-design/components/icon';
-import { useAudioStore } from '@/app/stores/audioStore';
-import { useDepthStore } from '@/app/stores/depthStore';
-import { useDetectionStore } from '@/app/stores/detectionStore';
-import { useImageCaptioningStore } from '@/app/stores/imageCaptioningStore';
-import { useDepthProcessing } from '@/app/hooks/useDepthProcessing';
-import { useDetectionProcessing } from '@/app/hooks/useDetectionProcessing';
-import { useImageCaptioningProcessing } from '@/app/hooks/useImageCaptioningProcessing';
-import { useAudioProcessing } from '@/app/hooks/useAudioProcessing';
+import { useAudioStore } from 'src/app/stores/audioStore';
+import { useDepthStore } from 'src/app/stores/depthStore';
+import { useDetectionStore } from 'src/app/stores/detectionStore';
+import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
+import { useDepthProcessing } from 'src/app/hooks/useDepthProcessing';
+import { useDetectionProcessing } from 'src/app/hooks/useDetectionProcessing';
+import { useImageCaptioningProcessing } from 'src/app/hooks/useImageCaptioningProcessing';
+import { useAudioProcessing } from 'src/app/hooks/useAudioProcessing';
 
 // Custom help panel component that displays FPS metrics for different models
 // and video format information

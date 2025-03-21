@@ -3,13 +3,13 @@
 'use client';
 
 import { Hub } from '@aws-amplify/core';
-import { useMetaStore } from '@/app/stores/metaStore';
-import { useAudioStore } from '@/app/stores/audioStore';
-import { useDetectionStore } from '@/app/stores/detectionStore';
-import { useDepthStore } from '@/app/stores/depthStore';
-import { useImageCaptioningStore } from '@/app/stores/imageCaptioningStore';
-import { useLogsStore } from '@/app/stores/logsStore';
-import FrameManager from '@/app/utils/frameManager';
+import { useMetaStore } from 'src/app/stores/metaStore';
+import { useAudioStore } from 'src/app/stores/audioStore';
+import { useDetectionStore } from 'src/app/stores/detectionStore';
+import { useDepthStore } from 'src/app/stores/depthStore';
+import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
+import { useLogsStore } from 'src/app/stores/logsStore';
+import FrameManager from 'src/app/utils/frameManager';
 
 export class SessionManager {
   static instance = null;

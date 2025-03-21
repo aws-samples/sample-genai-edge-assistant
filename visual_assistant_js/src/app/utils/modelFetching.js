@@ -4,7 +4,7 @@ import { fetchAuthSession } from '@aws-amplify/auth';
 import axios from 'axios';
 import JSZip from 'jszip';
 import crypto from 'crypto';
-import { useServiceSelectionStore } from '@/app/stores/serviceSelectionStore';
+import { useServiceSelectionStore } from 'src/app/stores/serviceSelectionStore';
 
 // Performs partial hashing of large files by sampling beginning, middle and end chunks
 // Returns a SHA-256 hash that's good enough for validation while being fast

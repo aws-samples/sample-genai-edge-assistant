@@ -9,13 +9,13 @@ import {
 } from '@cloudscape-design/components';
 import { useEffect, useState } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useDepthStore } from '@/app/stores/depthStore';
-import { useDetectionStore } from '@/app/stores/detectionStore';
-import { useMetaStore } from '@/app/stores/metaStore';
-import { useDepthProcessing } from '@/app/hooks/useDepthProcessing';
-import { useDetectionProcessing } from '@/app/hooks/useDetectionProcessing';
+import { useDepthStore } from 'src/app/stores/depthStore';
+import { useDetectionStore } from 'src/app/stores/detectionStore';
+import { useMetaStore } from 'src/app/stores/metaStore';
+import { useDepthProcessing } from 'src/app/hooks/useDepthProcessing';
+import { useDetectionProcessing } from 'src/app/hooks/useDetectionProcessing';
 
-import { calculateMedian } from '@/app/utils/utils';
+import { calculateMedian } from 'src/app/utils/utils';
 
 const ObjectDistancesBox = () => {
   const [distanceObject, setDistanceObjects] = useState(null);

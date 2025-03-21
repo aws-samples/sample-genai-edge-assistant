@@ -7,10 +7,10 @@ import {
   Header,
   StatusIndicator,
 } from '@cloudscape-design/components';
-import { useImageCaptioningStore } from '@/app/stores/imageCaptioningStore';
-import { useAudioStore } from '@/app/stores/audioStore';
-import { useImageCaptioningProcessing } from '@/app/hooks/useImageCaptioningProcessing';
-import { useAudioProcessing } from '@/app/hooks/useAudioProcessing';
+import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
+import { useAudioStore } from 'src/app/stores/audioStore';
+import { useImageCaptioningProcessing } from 'src/app/hooks/useImageCaptioningProcessing';
+import { useAudioProcessing } from 'src/app/hooks/useAudioProcessing';
 
 const ImageCaptioningBox = () => {
   const { status: imageCaptioningStatus } = useImageCaptioningProcessing();

@@ -6,7 +6,7 @@ import {
   env,
   RawImage,
 } from '@huggingface/transformers';
-import { setupWorkerLogging } from '@/app/utils/workerLogging.js';
+import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 
 // Skip local model check
 env.allowLocalModels = true;

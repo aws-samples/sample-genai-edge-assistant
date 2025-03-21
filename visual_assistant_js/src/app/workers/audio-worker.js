@@ -9,7 +9,7 @@ import {
   env,
   stack,
 } from '@huggingface/transformers';
-import { setupWorkerLogging } from '@/app/utils/workerLogging.js';
+import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 import { WaveFile } from 'wavefile';
 
 // Skip local model check

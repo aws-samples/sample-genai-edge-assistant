@@ -18,8 +18,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 import ReactFlow, { Background, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
 
-import NavigationCamera from '@/app/components/navigation/navigationCamera';
-import EditableTextArea from '@/app/components/editableTextArea';
+import NavigationCamera from 'src/app/components/navigation/navigationCamera';
+import EditableTextArea from 'src/app/components/editableTextArea';
 import {
   initialEdges,
   initialNodes,
@@ -27,10 +27,10 @@ import {
   initialPrompt_2,
   initialPrompt_3,
   initialPrompt_4,
-} from '@/app/globals';
-import FrameManager from '@/app/utils/frameManager';
-import { rawImageToBase64, getImageHash } from '@/app/utils/navigationUtils';
-import TopBar from '@/app/components/topBar';
+} from 'src/app/globals';
+import FrameManager from 'src/app/utils/frameManager';
+import { rawImageToBase64, getImageHash } from 'src/app/utils/navigationUtils';
+import TopBar from 'src/app/components/topBar';
 
 const CAPTURE_INTERVAL = 500; // 500ms between captures
 const REQUEST_TIMEOUT = 1000; // 1s timeout for requests

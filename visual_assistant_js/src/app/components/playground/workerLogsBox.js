@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { Container, Header, Tabs } from '@cloudscape-design/components';
-import { useLogsStore } from '@/app/stores/logsStore';
+import { useLogsStore } from 'src/app/stores/logsStore';
 import { useEffect, useRef, useState } from 'react';
 
 const WORKER_TABS = [

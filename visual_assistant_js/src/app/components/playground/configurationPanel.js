@@ -12,11 +12,11 @@ import {
   SpaceBetween,
   StatusIndicator,
 } from '@cloudscape-design/components';
-import { useDepthStore } from '@/app/stores/depthStore';
-import { useDetectionStore } from '@/app/stores/detectionStore';
-import { useMetaStore } from '@/app/stores/metaStore';
-import { WORKER_TO_MODEL_MAP } from '@/app/globals';
-import { deleteAllCache, deleteModelsCache } from '@/app/utils/modelFetching';
+import { useDepthStore } from 'src/app/stores/depthStore';
+import { useDetectionStore } from 'src/app/stores/detectionStore';
+import { useMetaStore } from 'src/app/stores/metaStore';
+import { WORKER_TO_MODEL_MAP } from 'src/app/globals';
+import { deleteAllCache, deleteModelsCache } from 'src/app/utils/modelFetching';
 
 const ConfigurationPanel = () => {
   const alertThreshold = useMetaStore((state) => state.alertThreshold);

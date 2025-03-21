@@ -7,11 +7,12 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Amplify } from 'aws-amplify';
 import messages from '@cloudscape-design/components/i18n/messages/all.en';
-import { useMetaStore } from '@/app/stores/metaStore';
-import NavigationMode from '@/app/components/navigation/navigationModeWidget';
-import PlaygroundMode from '@/app/components/playground/playgroundWidget';
-import { useSpeechRecognition } from '@/app/hooks/useSpeechRecognition';
+import { useMetaStore } from 'src/app/stores/metaStore';
+import NavigationMode from 'src/app/components/navigation/navigationModeWidget';
+import PlaygroundMode from 'src/app/components/playground/playgroundWidget';
+import { useSpeechRecognition } from 'src/app/hooks/useSpeechRecognition';
 import config from '/amplify-config';
+
 
 Amplify.configure({ ...config });
 

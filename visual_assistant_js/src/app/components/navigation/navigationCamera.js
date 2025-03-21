@@ -7,10 +7,10 @@ import {
   StatusIndicator,
 } from '@cloudscape-design/components';
 import { useRef } from 'react';
-import CameraSelector from '@/app/components/camera/cameraSelector';
-import VideoDisplay from '@/app/components/camera/videoDisplay';
-import { STATUS_CONFIG } from '@/app/globals';
-import useCamera from '@/app/hooks/useCamera';
+import CameraSelector from 'src/app/components/camera/cameraSelector';
+import VideoDisplay from 'src/app/components/camera/videoDisplay';
+import { STATUS_CONFIG } from 'src/app/globals';
+import useCamera from 'src/app/hooks/useCamera';
 
 const NavigationCamera = () => {
   const videoRef = useRef(null);

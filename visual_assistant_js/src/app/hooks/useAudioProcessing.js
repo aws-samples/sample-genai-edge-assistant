@@ -3,9 +3,9 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useAudioStore } from '@/app/stores/audioStore';
-import { useImageCaptioningStore } from '@/app/stores/imageCaptioningStore';
-import { useLogsStore } from '@/app/stores/logsStore';
+import { useAudioStore } from 'src/app/stores/audioStore';
+import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
+import { useLogsStore } from 'src/app/stores/logsStore';
 
 const PROGRESS_UPDATE_INTERVAL = 500;
 

@@ -12,22 +12,22 @@ import {
   Toggle,
   AppLayout,
 } from '@cloudscape-design/components';
-import ConfigurationPanel from '@/app/components/playground/configurationPanel';
-import { useAudioProcessing } from '@/app/hooks/useAudioProcessing';
-import { useDepthProcessing } from '@/app/hooks/useDepthProcessing';
-import { useDetectionProcessing } from '@/app/hooks/useDetectionProcessing';
-import { useImageCaptioningProcessing } from '@/app/hooks/useImageCaptioningProcessing';
-import { useServiceSelectionStore } from '@/app/stores/serviceSelectionStore';
-import ModelsDownloadInfoBox from '@/app/components/playground/modelsDownloadInfoBox';
-import WorkerLogsBox from '@/app/components/playground/workerLogsBox';
-import { useDepthStore } from '@/app/stores/depthStore';
-import PlaygroundCamera from '@/app/components/playground/playgroundCameras';
-import { useMetaStore } from '@/app/stores/metaStore';
-import ServiceSelectionModal from '@/app/components/playground/ServiceSelectionModal';
-import ObjectDistancesBox from '@/app/components/playground/objectDistancesBox';
-import CustomHelpPanel from '@/app/components/playground/helpPanel';
-import ImageCaptioningBox from '@/app/components/playground/imageCaptioningBox';
-import TopBar from '@/app/components/topBar';
+import ConfigurationPanel from 'src/app/components/playground/configurationPanel';
+import { useAudioProcessing } from 'src/app/hooks/useAudioProcessing';
+import { useDepthProcessing } from 'src/app/hooks/useDepthProcessing';
+import { useDetectionProcessing } from 'src/app/hooks/useDetectionProcessing';
+import { useImageCaptioningProcessing } from 'src/app/hooks/useImageCaptioningProcessing';
+import { useServiceSelectionStore } from 'src/app/stores/serviceSelectionStore';
+import ModelsDownloadInfoBox from 'src/app/components/playground/modelsDownloadInfoBox';
+import WorkerLogsBox from 'src/app/components/playground/workerLogsBox';
+import { useDepthStore } from 'src/app/stores/depthStore';
+import PlaygroundCamera from 'src/app/components/playground/playgroundCameras';
+import { useMetaStore } from 'src/app/stores/metaStore';
+import ServiceSelectionModal from 'src/app/components/playground/ServiceSelectionModal';
+import ObjectDistancesBox from 'src/app/components/playground/objectDistancesBox';
+import CustomHelpPanel from 'src/app/components/playground/helpPanel';
+import ImageCaptioningBox from 'src/app/components/playground/imageCaptioningBox';
+import TopBar from 'src/app/components/topBar';
 
 export default function PlaygroundMode() {
   const {

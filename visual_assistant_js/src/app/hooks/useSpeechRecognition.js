@@ -1,7 +1,7 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import { useEffect, useRef, useState } from 'react';
-import { useMetaStore } from '@/app/stores/metaStore';
+import { useMetaStore } from 'src/app/stores/metaStore';
 
 export function useSpeechRecognition() {
   const recognition = useRef(null);

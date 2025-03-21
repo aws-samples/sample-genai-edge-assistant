@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT-0
 import { useState, useEffect, useRef } from 'react';
 import { RawImage } from '@huggingface/transformers';
-import FrameManager from '@/app/utils/frameManager';
+import FrameManager from 'src/app/utils/frameManager';
 
 const DEFAULT_VIDEO_CONFIG = {
   width: { ideal: 640 },

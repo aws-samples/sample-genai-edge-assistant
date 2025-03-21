@@ -13,7 +13,7 @@ import DOMPurify from 'dompurify';
 const VALIDATION_RULES = {
   maxLength: 1000,
   minLength: 1,
-  allowedPattern: /^[a-zA-Z0-9\s.,!?'"\-_():]+$/,
+  allowedPattern: /^[a-zA-Z0-9\s.,!?'"\-_():]+src/,
   blockedWords: ['script', 'onclick', 'javascript', '<', '>', '{', '}'],
 };
 

@@ -10,13 +10,13 @@ import {
   Spinner,
   Alert,
 } from '@cloudscape-design/components';
-import { useServiceSelectionStore } from '@/app/stores/serviceSelectionStore';
-import { useMetaStore } from '@/app/stores/metaStore';
+import { useServiceSelectionStore } from 'src/app/stores/serviceSelectionStore';
+import { useMetaStore } from 'src/app/stores/metaStore';
 import {
   fetchModelUrl,
   downloadAndCacheModels,
-} from '@/app/utils/modelFetching';
-import { WORKER_TO_MODEL_MAP } from '@/app/globals';
+} from 'src/app/utils/modelFetching';
+import { WORKER_TO_MODEL_MAP } from 'src/app/globals';
 import { useAuthenticator } from '@aws-amplify/ui-react';
 
 const RATE_LIMIT = {

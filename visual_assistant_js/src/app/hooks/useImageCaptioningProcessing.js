@@ -3,9 +3,9 @@
 'use client';
 import { useRef } from 'react';
 import { shallow } from 'zustand/shallow';
-import { useImageCaptioningStore } from '@/app/stores/imageCaptioningStore';
-import { useLogsStore } from '@/app/stores/logsStore';
-import FrameManager from '@/app/utils/frameManager';
+import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
+import { useLogsStore } from 'src/app/stores/logsStore';
+import FrameManager from 'src/app/utils/frameManager';
 
 const PROGRESS_UPDATE_INTERVAL = 500;
 

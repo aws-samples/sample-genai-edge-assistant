@@ -4,7 +4,7 @@
 import { Box } from '@cloudscape-design/components';
 import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
-import { VIDEO_DISPLAY_COMMON_STYLE } from '@/app/globals';
+import { VIDEO_DISPLAY_COMMON_STYLE } from 'src/app/globals';
 
 const VideoDisplay = ({ videoRef }) => {
   useEffect(() => {

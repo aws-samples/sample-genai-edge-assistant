@@ -10,7 +10,7 @@ import {
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import { Toggle } from '@cloudscape-design/components';
-import { useMetaStore } from '@/app/stores/metaStore';
+import { useMetaStore } from 'src/app/stores/metaStore';
 
 const TopBar = () => {
   const { user, signOut } = useAuthenticator();
