@@ -12,8 +12,13 @@ import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 // Skip local model check
 env.allowLocalModels = true;
 env.allowRemoteModels = false;
-env.backends.onnx.wasm.proxy = true;
 env.localModelPath = '/models/';
+
+env.backends.onnx.wasm.wasmPaths = {
+  // A
+  mjs: "/ort-wasm-simd.mjs",
+  wasm: "/ort-wasm-simd.wasm",
+}
 
 let captioning = null;
 let isInitialized = false;
