@@ -19,6 +19,9 @@ xenova/vit-gpt2-image-captioning - vit-gpt2-image-captioning model with ONNX wei
 xenova/yolov9-c_all - YOLOv9 model with ONNX weights.
 *GPL-3.0 License*
 
+onnx-community/Janus-Pro-1B-ONNX - Janus-Pro-1B multimodal model with ONNX weights for chat functionality.
+*Deepseek License*
+
 **Cloud-running inference model**
 
 google/paligemma-3b-mix-224 - PaliGemma.

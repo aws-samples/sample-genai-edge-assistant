@@ -18,7 +18,7 @@ import {
 import useCamera from 'src/app/hooks/useCamera';
 import { useDetectionStore } from 'src/app/stores/detectionStore';
 
-const BoundingBox = ({ box, sizes, id2label, threshold }) => {
+const BoundingBox = ({ box, sizes, id2label, threshold, videoRef }) => {
   const [xmin, ymin, xmax, ymax, score, id] = box;
   const [w, h] = sizes;
 
@@ -29,12 +29,32 @@ const BoundingBox = ({ box, sizes, id2label, threshold }) => {
   // Generate a random color for the box
   const color = COLOURS[id % COLOURS.length];
 
+
+  // Get actual video dimensions dynamically
+  const video = videoRef?.current;
+  if (!video) {return null;}
+
+  // Scale from MODEL input size to DISPLAYED video size
+  const [modelWidth, modelHeight] = sizes; // [288, 224] from model
+  const displayedWidth = video.clientWidth;   // 466
+  const displayedHeight = video.clientHeight; // 349
+
+  const scaleX = displayedWidth / modelWidth;   // 466/288 = 1.618
+  const scaleY = displayedHeight / modelHeight; // 349/224 = 1.558
+
+  const scaledXmin = xmin * scaleX;
+  const scaledYmin = ymin * scaleY;
+  const scaledWidth = (xmax - xmin) * scaleX;
+  const scaledHeight = (ymax - ymin) * scaleY;
+
+
   const boxStyle = {
     borderColor: color,
-    left: `${(100 * xmin) / w}%`,
-    top: `${(100 * ymin) / h}%`,
-    width: `${(100 * (xmax - xmin)) / w}%`,
-    height: `${(100 * (ymax - ymin)) / h}%`,
+    position: 'absolute',
+    left: `${scaledXmin}px`,
+    top: `${scaledYmin}px`,
+    width: `${scaledWidth}px`,
+    height: `${scaledHeight}px`,
   };
 
   const labelStyle = {
@@ -52,6 +72,8 @@ const BoundingBox = ({ box, sizes, id2label, threshold }) => {
 
 const PlaygroundCamera = ({ depthDrawingCanvasRef }) => {
   const videoRef = useRef(null);
+
+
   const {
     hasPermission,
     error,
@@ -106,10 +128,18 @@ const PlaygroundCamera = ({ depthDrawingCanvasRef }) => {
               autoPlay
               muted
               playsInline
+
             />
             <div
               className="absolute inset-0"
-              style={VIDEO_DISPLAY_COMMON_STYLE}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                pointerEvents: 'none',
+              }}
             >
               {overlay &&
                 outputs.map((output, index) => (
@@ -119,6 +149,7 @@ const PlaygroundCamera = ({ depthDrawingCanvasRef }) => {
                     sizes={sizes}
                     id2label={id2label}
                     threshold={threshold}
+                    videoRef={videoRef}
                   />
                 ))}
             </div>

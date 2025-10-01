@@ -188,3 +188,8 @@ export const WORKER_TO_MODEL_MAP = {
   imageCaptioning: ['image-captioning'],
   audio: ['tts', 'vocoder'],
 };
+
+// Chat models are handled separately in Chat mode
+export const CHAT_MODEL_MAP = {
+  chat: ['chat'],
+};

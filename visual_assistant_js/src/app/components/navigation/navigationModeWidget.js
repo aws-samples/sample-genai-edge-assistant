@@ -11,6 +11,8 @@ import {
   SpaceBetween,
   Toggle,
   Button,
+  AppLayout,
+  ContentLayout,
 } from '@cloudscape-design/components';
 import { fetchAuthSession } from 'aws-amplify/auth';
 import axios from 'axios';
@@ -20,6 +22,8 @@ import 'reactflow/dist/style.css';
 
 import NavigationCamera from 'src/app/components/navigation/navigationCamera';
 import EditableTextArea from 'src/app/components/editableTextArea';
+import ConfigurationPanel from 'src/app/components/playground/configurationPanel';
+import CustomHelpPanel from 'src/app/components/playground/helpPanel';
 import {
   initialEdges,
   initialNodes,
@@ -30,12 +34,18 @@ import {
 } from 'src/app/globals';
 import FrameManager from 'src/app/utils/frameManager';
 import { rawImageToBase64, getImageHash } from 'src/app/utils/navigationUtils';
+import { useMetaStore } from 'src/app/stores/metaStore';
 import TopBar from 'src/app/components/topBar';
 
 const CAPTURE_INTERVAL = 500; // 500ms between captures
 const REQUEST_TIMEOUT = 1000; // 1s timeout for requests
 
 const NavigationMode = () => {
+  // Panel state management
+  const configPanelOpen = useMetaStore((state) => state.configPanelOpen);
+  const setConfigPanelOpen = useMetaStore((state) => state.setConfigPanelOpen);
+  const [toolsOpen, setToolsOpen] = useState(false);
+
   // Voiceover
   const [isSpeechEnabled, setIsSpeechEnabled] = useState(false);
   const [lastSpokenMessage, setLastSpokenMessage] = useState('');
@@ -286,16 +296,8 @@ const NavigationMode = () => {
     cursor: 'pointer',
   };
 
-  return (
-    <div>
-      <div
-        style={{
-          backgroundColor: '#000000',
-        }}
-        id="top-bar"
-      >
-        <TopBar />
-      </div>
+  const content = (
+    <SpaceBetween direction="vertical" size="l">
       <NavigationCamera />
 
       <div className="p-3 rounded max-h-48 overflow-auto font-mono text-sm flex justify-center items-center">
@@ -520,7 +522,36 @@ const NavigationMode = () => {
           </Grid>
         </Container>
       </ExpandableSection>
-    </div>
+    </SpaceBetween>
+  );
+
+  return (
+    <>
+      <div
+        style={{
+          backgroundColor: '#000000',
+        }}
+        id="top-bar"
+      >
+        <TopBar />
+      </div>
+      <AppLayout
+        navigation={
+          <div style={{ padding: '16px' }}>
+            <ConfigurationPanel />
+          </div>
+        }
+        navigationWidth={350}
+        navigationOpen={configPanelOpen}
+        onNavigationChange={({ detail }) => setConfigPanelOpen(detail.open)}
+        content={<ContentLayout>{content}</ContentLayout>}
+        tools={<CustomHelpPanel />}
+        toolsOpen={toolsOpen}
+        onToolsChange={({ detail }) => setToolsOpen(detail.open)}
+        contentType="default"
+        toolsWidth={300}
+      />
+    </>
   );
 };
 

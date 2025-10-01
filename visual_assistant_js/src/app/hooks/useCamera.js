@@ -69,7 +69,7 @@ const useCamera = (videoRef) => {
           ? formattedDevices.find(
             (device) =>
               device.facingMode === 'environment' ||
-                device.label.toLowerCase().includes('back'),
+              device.label.toLowerCase().includes('back'),
           )
           : formattedDevices[0];
         setSelectedCamera(defaultCamera || formattedDevices[0]);
@@ -128,7 +128,7 @@ const useCamera = (videoRef) => {
 
           await new Promise((resolve) => {
             videoRef.current.onloadedmetadata = () => {
-              if (videoRef.current.readyState >= 2) {
+              if (videoRef.current && videoRef.current.readyState >= 2) {
                 resolve();
               }
             };

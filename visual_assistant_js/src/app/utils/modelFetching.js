@@ -117,6 +117,7 @@ async function downloadAndCacheModel(modelKey, url, serverETag) {
   const store = useServiceSelectionStore.getState();
 
   try {
+    console.log('Downloading model:', modelKey, 'from URL:', url);
     const response = await axios.get(url, {
       responseType: 'arraybuffer',
       onDownloadProgress: (progressEvent) => {
@@ -130,7 +131,7 @@ async function downloadAndCacheModel(modelKey, url, serverETag) {
     console.log('Fetching model:', modelKey, response.status);
     await cacheModel(modelKey, response.data, serverETag);
   } catch (error) {
-    console.error('Error processing model:', modelKey, error);    throw error;
+    console.error('Error processing model:', modelKey, error); throw error;
   }
 }
 
@@ -153,7 +154,7 @@ async function cacheModel(modelKey, data, ETag) {
       const handler = FILE_TYPE_HANDLERS[extensionName];
 
       if (!handler) {
-        console.error(`Unknown file type: ${extensionName}`);
+        console.warn(`Unknown file type: ${extensionName}`);
         continue;
       }
 

@@ -1,25 +1,20 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 import {
-  Button,
+  Button as AmplifyButton,
   Flex,
   Heading,
-  Text,
   useAuthenticator,
   View,
 } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import { Toggle } from '@cloudscape-design/components';
+import { Button, SpaceBetween } from '@cloudscape-design/components';
 import { useMetaStore } from 'src/app/stores/metaStore';
 
 const TopBar = () => {
-  const { user, signOut } = useAuthenticator();
-  const navigationModeActivated = useMetaStore(
-    (state) => state.navigationModeActivated,
-  );
-  const setNavigationModeActivated = useMetaStore(
-    (state) => state.setNavigationModeActivated,
-  );
+  const { signOut } = useAuthenticator();
+  const currentMode = useMetaStore((state) => state.currentMode);
+  const setCurrentMode = useMetaStore((state) => state.setCurrentMode);
 
 
   return (
@@ -37,12 +32,12 @@ const TopBar = () => {
         <Flex justifyContent="space-between" alignItems="center">
           {/* Left side: App Logo or Name */}
           <Heading level={6} color="white" margin="0">
-            AWS real-time visual assistant
+            AWS Edge Visual Assistant
           </Heading>
 
           {/* Right side: User info and sign-out */}
           <Flex alignItems="center">
-            <Button
+            <AmplifyButton
               onClick={signOut}
               variation="primary"
               size="small"
@@ -50,26 +45,44 @@ const TopBar = () => {
               color="white"
             >
               Sign Out
-            </Button>
+            </AmplifyButton>
           </Flex>
         </Flex>
 
         <Flex alignItems="center" gap="2rem">
           <div style={{ color: 'white', fontSize: '12px', fontWeight: 'bold' }}>
-            {navigationModeActivated ? 'Navigation mode' : 'Playground mode'}
+            {currentMode === 'navigation' ? 'Navigation mode' :
+              currentMode === 'chat' ? 'Chat mode' : 'Playground mode'}
           </div>
           <div>
             <div
               style={{ color: 'white', fontSize: '10px', marginBottom: '8px' }}
             >
-              Use navigation mode for guidance to objects
+              Select mode: Playground for testing, Navigation for guidance, Chat for conversation
             </div>
-            <Toggle
-              checked={navigationModeActivated}
-              onChange={({ detail }) => setNavigationModeActivated(detail.checked)}
-            >
-              <span style={{ color: 'white', fontSize: '12px'}}>Switch to navigation mode</span>
-            </Toggle>
+            <SpaceBetween direction="horizontal" size="xs">
+              <Button
+                variant={currentMode === 'playground' ? 'primary' : 'normal'}
+                onClick={() => setCurrentMode('playground')}
+                size="small"
+              >
+                Playground
+              </Button>
+              <Button
+                variant={currentMode === 'navigation' ? 'primary' : 'normal'}
+                onClick={() => setCurrentMode('navigation')}
+                size="small"
+              >
+                Navigation
+              </Button>
+              <Button
+                variant={currentMode === 'chat' ? 'primary' : 'normal'}
+                onClick={() => setCurrentMode('chat')}
+                size="small"
+              >
+                Chat
+              </Button>
+            </SpaceBetween>
           </div>
         </Flex>
       </Flex>

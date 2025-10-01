@@ -7,14 +7,21 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "dependencies": {
     "@aws-amplify/adapter-nextjs": "^1.2.21",
     "@aws-amplify/ui-react": "^6.5.4",
-    "@cloudscape-design/components": "^3.0.748",
+    "@aws-sdk/client-sagemaker-runtime": "^3.864.0",
+    "@aws-sdk/credential-providers": "^3.864.0",
+    "@cloudscape-design/chat-components": "^1.0.58",
+    "@cloudscape-design/component-toolkit": "^1.0.0-beta.113",
+    "@cloudscape-design/components": "^3.0.1056",
     "@cloudscape-design/global-styles": "^1.0.32",
-    "@huggingface/transformers": "^3.3.2",
+    "@huggingface/transformers": "^3.7.2",
     "@stdlib/datasets-cmudict": "^0.2.2",
     "aws-amplify": "^6.6.4",
     "axios": "^1.7.7",
@@ -23,16 +30,26 @@
     "next": "15.1.6",
     "react": "^18.3.1",
     "react-dom": "^18",
+    "react-markdown": "^10.1.0",
     "reactflow": "^11.11.4",
+    "remark-gfm": "^4.0.1",
     "wavefile": "^11.0.0",
     "zustand": "^5.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
     "@types/react": "18.3.11",
+    "babel-jest": "^30.0.5",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.0.3",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.31.0",
+    "jest": "^30.0.5",
+    "jest-environment-jsdom": "^30.0.5",
     "lint-staged": "^15.3.0",
     "postcss": "^8",
     "prettier": "^3.4.2",
@@ -42,5 +59,34 @@
   "lint-staged": {
     "*.js": "eslint --fix",
     "*.{js,jsx,ts,tsx,md,html,css}": "prettier --write"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupTests.js"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js",
+      "!src/**/__tests__/**",
+      "!src/setupTests.js"
+    ],
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": [
+        "babel-jest",
+        {
+          "presets": [
+            "next/babel"
+          ]
+        }
+      ]
+    }
   }
 }

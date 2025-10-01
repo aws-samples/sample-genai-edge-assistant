@@ -5,9 +5,10 @@ import 'src/app/globals.css';
 
 export const metadata = {
   title: 'Visual Assistant',
-  /* icons: {
+  description: 'AI-powered visual assistant for accessibility',
+  icons: {
     icon: '/favicon.ico',
-  }, */
+  },
 };
 
 export default function RootLayout({ children }) {

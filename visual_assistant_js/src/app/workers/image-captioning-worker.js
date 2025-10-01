@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
@@ -17,10 +17,9 @@ env.allowRemoteModels = false;
 env.localModelPath = '/models/';
 
 env.backends.onnx.wasm.wasmPaths = {
-  // A
-  mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.mjs',
-  wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.wasm'
-}
+  mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.mjs',
+  wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.wasm',
+};
 
 let captioning = null;
 let isInitialized = false;
@@ -33,7 +32,7 @@ class ImageCaptioningPipelineSingleton {
   static model = 'image-captioning';
   static device = 'wasm';
 
-  static async getInstance(progress_callback = null) {
+  static async getInstance(progressCallback = null) {
     // Check if mobile device
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -62,7 +61,7 @@ class ImageCaptioningPipelineSingleton {
           // Use fp16 if available, otherwise use fp32
           dtype: 'q8',
           quantized: true,
-          progress_callback,
+          progress_callback: progressCallback,
         },
       );
     } catch (e) {

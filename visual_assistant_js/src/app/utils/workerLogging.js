@@ -12,6 +12,7 @@ const DEBUG = {
   audio: process.env.NEXT_PUBLIC_DEBUG_AUDIO === 'true',
   detection: process.env.NEXT_PUBLIC_DEBUG_DETECTION === 'true',
   imageCaptioning: process.env.NEXT_PUBLIC_DEBUG_IMAGE_CAPTIONING === 'true',
+  chat: process.env.NEXT_PUBLIC_DEBUG_CHAT === 'true',
 };
 
 // Define a function to setup worker logging

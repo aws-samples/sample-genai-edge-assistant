@@ -1,22 +1,26 @@
 ## Getting started using Amplify for frontend deployment
 
-### Pushing the frontend code to an empty Github repository
+To deploy the frontend you have 2 options: 
 
-For the setup to be working seamlessly, you will need to push the content of the current directory (visual_assistant_js) to the root of a new Github repository. This repository will be used by AWS Amplify to deploy the frontend.
+1. Deploy using the Amplify build system 
+2. Deploy the frontend locally for development.
 
-### Deploying with Amplify
+> If you followed all the instructions from the main [README.md](../README.md), you already deployed using option 1. and you can skip this whole README if you don't want to further customize/develop.
 
-To deploy the Webapp to Amplify, you can go into the Amplify console on you AWS account and click on deploy a new app. You will then be prompted to setup a Github integration between Amplify on your AWS account and your Github account. **Ideally you have your own version of the GitHub, to avoid any issue with the public repository.**
+
+### 1. Deploying with Amplify
+
+To deploy the Webapp to Amplify, you can go into the Amplify console on you AWS account and click on deploy a new app. You will then be prompted to setup a Github integration between Amplify on your AWS account and your Github account. **Ideally you have your own version (Fork) of the GitHub, to avoid any issue with the public repository.**
 
 You can limit AWS integration to solely access the frontend repository. Just follow the instructions and select the correct Github branch to deploy the application. Deploy the application as a monorepo app, with the root directory set to the current directory `visual_assistant_js`.
 
-> As of Feb 2025, the Amplify environment lacks **libvips**, crucial for the working of @huggingface/transformers (through dependancy **sharp**). Because of licensing issue, we removed all dependencies licensed under LGPL-3.0
-which turns out to be some optional dependancies of **sharp** who can remediate the issue.  
+> As of Feb 2025, the Amplify environment lacks **libvips**, crucial for the working of @huggingface/transformers (through dependency **sharp**). Because of licensing issue, we removed all dependencies licensed under LGPL-3.0
+which turns out to be some optional dependencies of **sharp** who can remediate the issue.  
 However, **libvips** is licensed under LGPL-2.1, so we can compile it ourselves. Under <u>libvips_x64</u> folder we prepared some precompiled libs that should work, but with time this could be no longer the case.  
 [script-docker.sh](./script-docker.sh) is a script that can automatically compile and populate the needed files into libvips_x64 folder in the repo. One important thing to keep in mind is that Amplify environment does not necessarily use the latest Amazon Linux 2023 image, so we need to downgrade to the needed version for some of the tools we use, particularly **glib2**, to the version that Amplify uses. We have **GLIB_VERSION** environment variable with a default value, you can override by invoking `GLIB_VERSION=xxxxxx ./script-docker.sh` 
 
 
-## Getting started for a local or custom web server deployment
+## 2. Getting started for a local or custom web server deployment
 
 ### Initialization
 
@@ -50,6 +54,7 @@ NEXT_PUBLIC_REGION_NAME="<REGION_NAME>"
 NEXT_PUBLIC_COGNITO_USER_POOL_ID="<COGNITO_USER_POOL_ID>"
 NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID="<COGNITO_USER_POOL_CLIENT_ID>"
 NEXT_PUBLIC_API_GATEWAY_ENDPOINT="<API_GATEWAY_ENDPOINT>"
+NEXT_PUBLIC_CHAT_ENDPOINT_NAME"="<CHAT_ENDPOINT_NAME>"
 NEXT_PUBLIC_DEBUG_AUDIO=false
 NEXT_PUBLIC_DEBUG_DEPTH=false
 NEXT_PUBLIC_DEBUG_DETECTION=false

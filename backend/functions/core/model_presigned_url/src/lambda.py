@@ -9,7 +9,7 @@ import boto3
 from botocore.exceptions import ClientError
 
 # Important: we have 4 directories to be looked into: depth, tts, image-captioning, object-detection
-DIR_NAMES = ["depth", "tts", "vocoder", "image-captioning", "object-detection"]
+DIR_NAMES = ["depth", "tts", "vocoder", "image-captioning", "object-detection", "chat"]
 
 model_artifacts_bucket = os.environ["MODELS_ARTIFACTS_BUCKET"]
 

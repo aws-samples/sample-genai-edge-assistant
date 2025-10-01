@@ -9,7 +9,7 @@ import { useDetectionStore } from 'src/app/stores/detectionStore';
 import { useDepthStore } from 'src/app/stores/depthStore';
 import { useImageCaptioningStore } from 'src/app/stores/imageCaptioningStore';
 import { useLogsStore } from 'src/app/stores/logsStore';
-import FrameManager from 'src/app/utils/frameManager';
+import FrameManager from './frameManager';
 
 export class SessionManager {
   static instance = null;

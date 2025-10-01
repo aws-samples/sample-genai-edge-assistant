@@ -1,15 +1,30 @@
 # Backend deployment 
 
-## Deploying the stack
+To deploy the backend you have 2 options: 
+
+1. Deploy using the Amplify build system (recommended).
+2. Deploy the stack manually.
+
+> If you followed the instructions from the main [README.md](../README.md), you already deployed using option 1. and you can skip this whole README.
+
+## 1. Deploy using the Amplify build system (recommended)
+
+When you configured Amplify with the instructions from the main [README.md](../README.md), the Amplify build system run the commands from [amplify.yml](../amplify.yml), hence the CDK template was deployed automatically and the SageMaker Pipelines too. 
+
+If you want to understand more in details what happens and run the commands manually for testing CDK, deploying the models manually, or other reason, check out section 2. below.
+
+## 2. Deploying the stack manually
 
 ### If you are using AWS Amplify to deploy the frontend
 
 **You need to deploy the backend after frontend is deployed as an Amplify application.** This is due to the fact that pushing environment variable to Amplify is automated but only available after app creation.
 
+To manually deploy, execute the commands in [amplify.yml](../amplify.yml) for the "backend" section.
+
 Install the [requirements](./requirements.txt) in a virtual environment:
 
 ```
-cd backend
+cd resources
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
@@ -119,7 +134,7 @@ Additionally, the following Lambda functions are used:
 
 - **Setup autoscaling Lambda function**: This function is responsible for setting up auto-scaling for the SageMaker endpoint. It requires permissions to register scalable targets, put scaling policies, and create CloudWatch alarms.
 
-# Backend resources destruction
+## 3. Backend resources destruction
 
 **By default, NO resources are kept after backend destruction. This is to avoid remains conflicts and unforecasted costs. If you want to keep S3 buckets files, SageMaker models,... you shall make saves by yourself or adapt the CDK stack and deletion script retention policies.**
 
@@ -127,7 +142,7 @@ First, you need to delete the SageMaker pipelines and models which are not part 
 Start by running: 
 
 ```
-PYTHONPATH=./shared/ python ./backend/sagemakerpipeline/pipelines_resources_deletion.py
+PYTHONPATH=./shared/ python ./resources/sagemaker/sagemakerpipeline/pipelines_resources_deletion.py
 ```
 
 Once this is done and the output does not raise any exception, you can delete the CDK stack:

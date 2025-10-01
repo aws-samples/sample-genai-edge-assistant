@@ -27,14 +27,38 @@ export const useServiceSelectionStore = create((set, get) => ({
     })),
 
   validateAndUpdateModelStatus: async () => {
+    const { remoteModelInfo } = get();
     const newModelStatus = {};
-    for (const model of Object.values(WORKER_TO_MODEL_MAP).flat()) {
+
+    // Include chat models from CHAT_MODEL_MAP
+    const allModels = [
+      ...Object.values(WORKER_TO_MODEL_MAP).flat(),
+      ...Object.values({ chat: ['chat'] }).flat(), // Add chat models
+    ];
+
+    for (const model of allModels) {
       const manifest = await getCachedManifest(model);
-      if (manifest) {
+      const remoteInfo = remoteModelInfo[model];
+
+      if (!manifest) {
+        newModelStatus[model] = 'missing';
+      } else if (!remoteInfo) {
+        // No remote info available, assume valid if files are valid
         const isValid = await validateCachedFiles(model, manifest);
         newModelStatus[model] = isValid ? 'valid' : 'invalid';
       } else {
-        newModelStatus[model] = 'missing';
+        // Compare ETags to detect updates
+        const localETag = manifest.etag;
+        const serverETag = remoteInfo.ETag;
+
+        if (localETag !== serverETag) {
+          // Server has a newer version
+          newModelStatus[model] = 'invalid';
+        } else {
+          // ETags match, validate files
+          const isValid = await validateCachedFiles(model, manifest);
+          newModelStatus[model] = isValid ? 'valid' : 'invalid';
+        }
       }
     }
     set({ modelStatus: newModelStatus });

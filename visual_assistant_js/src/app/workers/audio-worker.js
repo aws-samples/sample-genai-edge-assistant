@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
@@ -9,7 +9,6 @@ import {
   SpeechT5HifiGan,
   Tensor,
   env,
-  stack,
 } from '@huggingface/transformers';
 import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 import { WaveFile } from 'wavefile';
@@ -19,11 +18,11 @@ env.allowLocalModels = true;
 env.allowRemoteModels = false;
 env.localModelPath = '/models/';
 
+// Update ONNX runtime paths for compatibility with Transformers.js 3.7.2
 env.backends.onnx.wasm.wasmPaths = {
-  // A
-  mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.mjs',
-  wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.wasm'
-}
+  mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.mjs',
+  wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.wasm',
+};
 
 let audioPipeline = null;
 let vocoderPipeline = null;
@@ -37,7 +36,7 @@ class AudioPipelineSingleton {
   static model = 'tts';
   static device = 'wasm';
 
-  static async getInstance(progress_callback = null) {
+  static async getInstance() {
     this.tokenizer = await AutoTokenizer.from_pretrained(this.model, {
       device: this.device,
       dtype: 'q8',
@@ -58,7 +57,7 @@ class VocoderPipelineSingleton {
   static model = 'vocoder';
   static device = 'wasm';
 
-  static async getInstance(progress_callback = null) {
+  static async getInstance() {
     this.vocoder = await SpeechT5HifiGan.from_pretrained(this.model, {
       device: this.device,
       dtype: 'q8',
@@ -152,7 +151,7 @@ self.addEventListener('message', async (event) => {
       wav.fromScratch(
         1,
         16000,
-        "32f",
+        '32f',
         waveform.data
       );
       const wavBuffer = wav.toBuffer();

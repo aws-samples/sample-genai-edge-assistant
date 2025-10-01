@@ -15,7 +15,7 @@ import {
 import { useDepthStore } from 'src/app/stores/depthStore';
 import { useDetectionStore } from 'src/app/stores/detectionStore';
 import { useMetaStore } from 'src/app/stores/metaStore';
-import { WORKER_TO_MODEL_MAP } from 'src/app/globals';
+import { WORKER_TO_MODEL_MAP, CHAT_MODEL_MAP } from 'src/app/globals';
 import { deleteAllCache, deleteModelsCache } from 'src/app/utils/modelFetching';
 
 const ConfigurationPanel = () => {
@@ -35,9 +35,7 @@ const ConfigurationPanel = () => {
   const setVoiceControlEnabled = useMetaStore(
     (state) => state.setVoiceControlEnabled,
   );
-  const navigationModeActivated = useMetaStore(
-    (state) => state.navigationModeActivated,
-  );
+  const currentMode = useMetaStore((state) => state.currentMode);
   const workerKeys = Object.keys(WORKER_TO_MODEL_MAP);
 
   return (
@@ -76,6 +74,14 @@ const ConfigurationPanel = () => {
                     Delete {key} cache
                   </Button>
                 ))}
+                {/* Add chat model cache deletion */}
+                <Button
+                  onClick={() => deleteModelsCache(['chat'])}
+                  variant="primary"
+                  iconName="remove"
+                >
+                  Delete chat cache
+                </Button>
               </SpaceBetween>
               <Button
                 onClick={deleteAllCache}
@@ -91,7 +97,7 @@ const ConfigurationPanel = () => {
         <SpaceBetween size="xs">
           <Header
             variant="h3"
-            description="Voice control for switching mode. Say 'switch mode' to change from one mode to another. "
+            description="Voice control for switching modes. Say 'switch mode' to cycle through modes, or say 'switch to playground', 'switch to navigation', or 'switch to chat' for specific modes."
           >
             Voice control
           </Header>
@@ -106,7 +112,8 @@ const ConfigurationPanel = () => {
               <Box margin={{ top: 'xxs' }}>
                 <StatusIndicator type="success">
                   Active - Current mode:{' '}
-                  {navigationModeActivated ? 'Navigation' : 'Playground'}
+                  {currentMode === 'navigation' ? 'Navigation' :
+                    currentMode === 'chat' ? 'Chat' : 'Playground'}
                 </StatusIndicator>
               </Box>
             )}

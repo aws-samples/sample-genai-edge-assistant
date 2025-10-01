@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
@@ -10,7 +10,6 @@ import {
 } from '@huggingface/transformers';
 import { setupWorkerLogging } from 'src/app/utils/workerLogging.js';
 
-// Skip local model check
 env.allowLocalModels = true;
 env.allowRemoteModels = false;
 env.localModelPath = '/models/';
@@ -26,7 +25,7 @@ class DetectionPipelineSingleton {
   static model = 'object-detection';
   static device = 'wasm';
 
-  static async getInstance(progress_callback = null) {
+  static async getInstance(progressCallback = null) {
     // Check if mobile device
     const isMobile =
       /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -38,9 +37,9 @@ class DetectionPipelineSingleton {
       this.device = 'wasm';
       env.backends.onnx.wasm.wasmPaths = {
         // A
-        mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.mjs',
-        wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort-wasm-simd-threaded.wasm'
-      }
+        mjs: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.mjs',
+        wasm: 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.22.0/dist/ort-wasm-simd-threaded.wasm',
+      };
     } else if (!navigator.gpu) {
       console.warn(
         'WebGPU is not supported in this browser. Falling back to web assembly.',
@@ -48,27 +47,24 @@ class DetectionPipelineSingleton {
       this.device = 'wasm';
     } else {
       console.log('WebGPU is supported.');
-      //this.device = 'webgpu';
       this.device = 'webgpu';
     }
 
+    // Load YOLOv9 model and processor (same as working test page)
+    console.log('Loading object detection model...');
+
     this.objectDetectionModel = await AutoModel.from_pretrained(this.model, {
-      device: this.device,
-      // Use fp16 if available, otherwise use fp32
       dtype: 'q8',
       quantized: true,
-      progress_callback,
+      progress_callback: progressCallback,
     });
 
     this.objectDetectionProcessor = await AutoProcessor.from_pretrained(
       this.model,
     );
 
-    const size = 64;
-    this.objectDetectionProcessor.feature_extractor.size = {
-      shortest_edge: size,
-    };
-    this.threshold = 0.1;
+    console.log('Model loaded successfully');
+    this.threshold = 70; // from 0 to 100
 
     return this;
   }
@@ -135,97 +131,30 @@ self.addEventListener('message', async (event) => {
       return;
     }
 
-    console.log('Detection worker is processing !');
-
     img = new RawImage(event.data.frame.data, 640, 480, 4);
 
-    detector.objectDetectionProcessor.feature_extractor.size = {
-      shortest_edge: event.data.objectDetSize,
-    };
+    // Apply dynamic feature extractor size if provided
+    if (event.data.objectDetSize) {
+      detector.objectDetectionProcessor.feature_extractor.size = {
+        shortest_edge: event.data.objectDetSize,
+      };
+    }
 
-    // Actually perform the depth estimation
+    // Run YOLOv9 detection
     const inputs = await detector.objectDetectionProcessor(img);
     const { outputs } = await detector.objectDetectionModel(inputs);
+    const rawDetections = outputs.tolist();
 
-    // Function to calculate IoU of two bounding boxes
-    const calculateIoU = (box1, box2) => {
-      const [x1min, y1min, x1max, y1max] = box1;
-      const [x2min, y2min, x2max, y2max] = box2;
+    // Parse YOLOv9 output format: [xmin, ymin, xmax, ymax, confidence, classId]
+    // Send ALL detections to UI - filtering will be done there based on user threshold
+    const parsedDetections = rawDetections.map((det) => {
+      const [xmin, ymin, xmax, ymax, confidence, classId] = det;
+      const roundedClassId = Math.round(classId);
+      return [xmin, ymin, xmax, ymax, confidence, roundedClassId];
+    });
 
-      const intersectionX1 = Math.max(x1min, x2min);
-      const intersectionY1 = Math.max(y1min, y2min);
-      const intersectionX2 = Math.min(x1max, x2max);
-      const intersectionY2 = Math.min(y1max, y2max);
-
-      // 0 when w or h is negative
-      if (intersectionX2 < intersectionX1 || intersectionY2 < intersectionY1) {
-        return 0;
-      }
-
-      const intersection =
-        (intersectionX2 - intersectionX1) * (intersectionY2 - intersectionY1);
-      const box1Area = (x1max - x1min) * (y1max - y1min);
-      const box2Area = (x2max - x2min) * (y2max - y2min);
-
-      return intersection / (box1Area + box2Area - intersection);
-    };
-
-    // Merge nearby detections of the same class
-    const mergeDetections = (detections) => {
-      const merged = [];
-      const evaluatedAsDuplicateByIOU = new Set();
-
-      for (let i = 0; i < detections.length; i++) {
-        if (evaluatedAsDuplicateByIOU.has(i)) {
-          continue;
-        }
-
-        const current = detections[i];
-        let [xmin, ymin, xmax, ymax, score, label] = current;
-
-        for (let j = i + 1; j < detections.length; j++) {
-          if (evaluatedAsDuplicateByIOU.has(j)) {
-            continue;
-          }
-
-          const other = detections[j];
-          const [oxmin, oymin, oxmax, oymax, oscore, olabel] = other;
-
-          // Check if same label and IoU over threshold
-          if (
-            label === olabel &&
-            calculateIoU(
-              [xmin, ymin, xmax, ymax],
-              [oxmin, oymin, oxmax, oymax],
-            ) > 0.5
-          ) {
-            evaluatedAsDuplicateByIOU.add(j);
-
-            // Weighted average based on confidence scores for more stable coordinates
-            const total_score = score + oscore;
-            const w1 = score / total_score;
-            const w2 = oscore / total_score;
-
-            xmin = xmin * w1 + oxmin * w2;
-            ymin = ymin * w1 + oymin * w2;
-            xmax = xmax * w1 + oxmax * w2;
-            ymax = ymax * w1 + oymax * w2;
-
-            // Take the highest confidence
-            score = Math.max(score, oscore);
-          }
-        }
-
-        merged.push([xmin, ymin, xmax, ymax, score, label]);
-      }
-
-      return merged;
-    };
-
-    const rawOutputs = outputs.tolist();
-    const mergedOutputs = mergeDetections(rawOutputs);
-
-    const sizes = inputs.reshaped_input_sizes[0].reverse();
+    // Get sizes for UI
+    const sizes = inputs.reshaped_input_sizes[0].reverse(); // [width, height]
 
     fps = 1000 / (performance.now() - startTime);
 
@@ -233,11 +162,9 @@ self.addEventListener('message', async (event) => {
     self.postMessage({
       status: 'complete',
       sizes: sizes,
-      outputs: mergedOutputs,
+      outputs: parsedDetections,
       id2label: detector.objectDetectionModel.config.id2label,
       fps: fps,
     });
-
-    console.log('Detection worker finished processing !');
   }
 });

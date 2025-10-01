@@ -1,0 +1,131 @@
+/* Text Renderer Styles */
+
+.textRenderer {
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+/* Headers */
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  margin: 0.8em 0 0.4em 0;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.h1 { font-size: 1.5em; }
+.h2 { font-size: 1.3em; }
+.h3 { font-size: 1.2em; }
+.h4 { font-size: 1.1em; }
+.h5 { font-size: 1em; }
+.h6 { font-size: 0.9em; }
+
+/* Paragraphs */
+.p {
+  margin: 0.5em 0;
+}
+
+/* Code */
+.inlineCode {
+  background-color: #f1f3f4;
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9em;
+}
+
+.blockCode {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85em;
+}
+
+.pre {
+  background-color: #f8f9fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1em;
+  margin: 0.5em 0;
+  overflow-x: auto;
+}
+
+/* Lists */
+.ul, .ol {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.li {
+  margin: 0.2em 0;
+}
+
+/* Blockquotes */
+.blockquote {
+  border-left: 4px solid #d1d5db;
+  padding-left: 1em;
+  margin: 0.5em 0;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Links */
+.link {
+  color: #0073bb;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Tables (GitHub Flavored Markdown) */
+.textRenderer table {
+  border-collapse: collapse;
+  margin: 0.5em 0;
+  width: 100%;
+}
+
+.textRenderer th,
+.textRenderer td {
+  border: 1px solid #d1d5db;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.textRenderer th {
+  background-color: #f8f9fa;
+  font-weight: 600;
+}
+
+/* Strikethrough */
+.textRenderer del {
+  text-decoration: line-through;
+}
+
+/* Task lists */
+.textRenderer input[type="checkbox"] {
+  margin-right: 0.5em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .textRenderer {
+    font-size: 0.9em;
+  }
+  
+  .pre {
+    padding: 0.8em;
+    font-size: 0.8em;
+  }
+  
+  .ul, .ol {
+    padding-left: 1.2em;
+  }
+  
+  .textRenderer table {
+    font-size: 0.85em;
+  }
+  
+  .textRenderer th,
+  .textRenderer td {
+    padding: 0.3em;
+  }
+}

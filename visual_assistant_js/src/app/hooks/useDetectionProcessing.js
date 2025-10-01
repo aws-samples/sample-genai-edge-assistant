@@ -75,7 +75,6 @@ export function useDetectionProcessing() {
       break;
 
     case 'complete': {
-      console.log('Detection result received');
       const { sizes, outputs, id2label, fps } = e.data;
       setAll({
         fps,

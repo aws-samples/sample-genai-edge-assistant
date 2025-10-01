@@ -138,14 +138,6 @@ export default function PlaygroundMode() {
 
   const content = (
     <SpaceBetween size="m">
-      <div
-        style={{
-          backgroundColor: '#000000',
-        }}
-        id="top-bar"
-      >
-        <TopBar />
-      </div>
       <Container
         header={
           <Header
@@ -261,6 +253,14 @@ export default function PlaygroundMode() {
 
   return (
     <>
+      <div
+        style={{
+          backgroundColor: '#000000',
+        }}
+        id="top-bar"
+      >
+        <TopBar />
+      </div>
       <AppLayout
         navigation={
           <div style={{ padding: '16px' }}>
